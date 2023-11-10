@@ -1,0 +1,55 @@
+package com.example.quizapp;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView questionTextView;
+    private RadioGroup optionsRadioGroup;
+    private Button submitButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        questionTextView = findViewById(R.id.questionTextView);
+        optionsRadioGroup = findViewById(R.id.optionsRadioGroup);
+        submitButton = findViewById(R.id.submitButton);
+
+        // Set an initial question (you would load questions dynamically in a real app)
+        questionTextView.setText("What is the capital of France?");
+        ((RadioButton) findViewById(R.id.option1)).setText("Paris");
+        ((RadioButton) findViewById(R.id.option2)).setText("Berlin");
+        ((RadioButton) findViewById(R.id.option3)).setText("London");
+    }
+
+    public void onSubmitClick(View view) {
+        // Get the selected option
+        int selectedOptionId = optionsRadioGroup.getCheckedRadioButtonId();
+
+        if (selectedOptionId == -1) {
+            // No option selected
+            Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
+        } else {
+            // Option selected
+            RadioButton selectedOption = findViewById(selectedOptionId);
+            String selectedAnswer = selectedOption.getText().toString();
+
+            // Check the answer (you would compare with the correct answer in a real app)
+            if (selectedAnswer.equals("Paris")) {
+                Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Incorrect. Try again!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}
